@@ -1,0 +1,31 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "app para gestion de proyecto cids",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev" : "node -r ts-node/register --watch ./src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gregoalasino/cids_backend.git"
+  },
+  "author": "gregoalasino",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gregoalasino/cids_backend/issues"
+  },
+  "homepage": "https://github.com/gregoalasino/cids_backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.9.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  }
+}
