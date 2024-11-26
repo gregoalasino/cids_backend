@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.initializeApp = void 0;
 const express_1 = __importDefault(require("express"));
-const PORT = 3000;
+const PORT = 50505;
 const app = (0, express_1.default)();
 app.get("/", (request, response) => {
     console.log("Hola");

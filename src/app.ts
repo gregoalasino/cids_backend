@@ -1,37 +1,20 @@
-import express, {Express, Request, Response} from "express"
+import express, { Express } from "express";
+import cors from "cors";
+import registerRoutes from "./routes"; // Importa correctamente la función registerRoutes
 
-const PORT = 3000
+const app: Express = express();
 
-const app:Express = express()
+// Middlewares
+app.use(cors());
+app.use(express.json());
 
-const desarrolladores = [
-    {
-        nombre: "Grego",
-        edad: 28,
-        tecnologias: ["Python", "Flask"]
-    }
+// Rutas
+registerRoutes(app); // Registra las rutas en la instancia de app
 
-]
+// Puerto
+const PORT = 50505;
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
+});
 
-app.get("/desarrolladores", (request: Request, response: Response) => {
-    console.log("Hola")
-    response.send(desarrolladores)
-})
-
-app.post("./", (request: Request, response: Response) => {
-
-})
-
-app.put("./", (request: Request, response: Response) => {
-    
-})
-
-app.delete("./", (request: Request, response: Response) => {
-    
-})
-
-app.listen(PORT)
-
-console.log(`application running on port ${PORT}`)
-
-export const initializeApp = () => {}
+export default app;
