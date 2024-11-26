@@ -1,4 +1,5 @@
 // crear los verbos http para desarrolladores
+import  dataSource  from "../db";
 import { Router, Request, Response } from "express";
 import { getRepository } from "typeorm";
 import { DesarrolladorEntity } from "../entity/DesarrolladorEntity";
@@ -8,7 +9,7 @@ const router = Router();
 // obtener todos los desarrolladores
 router.get("/", async (req: Request, res: Response) => {
   try {
-    const desarrolladores = await getRepository(DesarrolladorEntity).find();
+    const desarrolladores = await dataSource.getRepository(DesarrolladorEntity).find();
     res.json(desarrolladores);
   } catch (error) {
     console.error(error);
@@ -19,7 +20,7 @@ router.get("/", async (req: Request, res: Response) => {
 // Crear un nuevo desarrollador
 router.post("/", async (req: Request, res: Response) => {
   try {
-    const repo = getRepository(DesarrolladorEntity);
+    const repo = dataSource.getRepository(DesarrolladorEntity);
     const nuevoDesarrollador = repo.create(req.body);
     const resultado = await repo.save(nuevoDesarrollador);
     res.status(201).json(resultado);
@@ -33,7 +34,7 @@ router.post("/", async (req: Request, res: Response) => {
 router.put('/:id', async (req: Request, res: Response) => {
     try {
         const id = parseInt(req.params.id, 10); // Convierte el ID a un número
-        const repo = getRepository(DesarrolladorEntity); // Asegúrate de que `getRepository` esté correctamente configurado
+        const repo = dataSource.getRepository(DesarrolladorEntity); // Asegúrate de que `getRepository` esté correctamente configurado
         const desarrollador = await repo.findOneBy({ id });
 
         if (!desarrollador) {
@@ -54,7 +55,7 @@ router.put('/:id', async (req: Request, res: Response) => {
 router.delete("/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const repo = getRepository(DesarrolladorEntity);
+    const repo = dataSource.getRepository(DesarrolladorEntity);
     const resultado = await repo.delete(id);
 
     if (resultado.affected === 0) {
