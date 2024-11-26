@@ -1,20 +1,19 @@
-import express, { Express } from "express";
+import express, { Express, json } from "express";
 import cors from "cors";
-import registerRoutes from "./routes"; // Importa correctamente la función registerRoutes
+import { ROUTES } from "./routes";
 
 const app: Express = express();
 
-// Middlewares
-app.use(cors());
-app.use(express.json());
+app.use(
+  cors({
+    origin: "http://localhost:4200",
+  })
+);
 
-// Rutas
-registerRoutes(app); // Registra las rutas en la instancia de app
+app.use(json());
 
-// Puerto
-const PORT = 50505;
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en el puerto ${PORT}`);
+ROUTES.forEach(({ path, router }) => {
+  app.use(path, router);
 });
 
 export default app;

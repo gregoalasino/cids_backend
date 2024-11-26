@@ -1,16 +1,18 @@
-import app from "./app";
 import dataSource from "./db";
+import app from "./app";
 
-const PORT = 50505;
+async function main() {
+  try {
+   
+    await dataSource.initialize();
 
-dataSource
-  .initialize()
-  .then(() => {
-    console.log("Conexión a la base de datos establecida");
-    app.listen(PORT, () => {
-      console.log(`Aplicación corriendo en el puerto ${PORT}`);
+    
+    app.listen(3000, () => {
+      console.log("Server running on port 3000");
     });
-  })
-  .catch((error) => {
-    console.error("Error al inicializar la conexión a la base de datos:", error);
-  });
+  } catch (e) {
+    console.error("Error initializing the server:", e);
+  }
+}
+
+main();
