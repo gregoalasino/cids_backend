@@ -18,6 +18,27 @@ export class DesarrolladorService {
     return repo.save(nuevoDesarrollador); // guardar entidad
   }
 
+  async actualizar(id: number, data: Partial<DesarrolladorEntity>) {
+    const repo = dataSource.getRepository(DesarrolladorEntity);
+  
+    // Busca el desarrollador existente
+    const desarrollador = await repo.findOne({
+      where: { id },
+      relations: ["rol"], // Incluye las relaciones si es necesario
+    });
+  
+    if (!desarrollador) {
+      throw new NotFoundException("Desarrollador no encontrado");
+    }
+  
+    // Actualiza las propiedades del desarrollador
+    Object.assign(desarrollador, data);
+  
+    // Guarda los cambios
+    return repo.save(desarrollador);
+  }
+
+
   async eliminar(id: number) {
     const repo = dataSource.getRepository(DesarrolladorEntity);
     const resultado = await repo.delete(id); // eliminar entidad por id
