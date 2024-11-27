@@ -1,15 +1,31 @@
-import { getRepository } from "typeorm";
-import { RolEntity } from "../entity/RolEntity";
+import { DatabaseException } from "../exception";
+import { Rol } from "../model";
+import { RolRepository } from "../repository";
 
-export class RolService {
-  async obtenerTodos() {
-    const repo = getRepository(RolEntity);
-    return repo.find();
-  }
+const crearRol = async (nombre: string): Promise<Rol> => {
+  try {
+    if (!nombre) {
+      throw new DatabaseException("El nombre del rol es obligatorio");
+    }
 
-  async crear(data: Partial<RolEntity>) {
-    const repo = getRepository(RolEntity);
-    const nuevoRol = repo.create(data);
-    return repo.save(nuevoRol);
+    // Llamada al repositorio para guardar el nuevo rol
+    return await RolRepository.crearRol(nombre);
+  } catch (error: any) {
+    console.error("Error en RolService:", error);
+    throw new DatabaseException(error.message);
   }
-}
+};
+
+const obtenerRoles = (): Promise<Rol[]> => {
+  try {
+    return RolRepository.obtenerRoles();
+  } catch (error: any) {
+    console.error("Error en RolService:", error);
+    throw new DatabaseException(error.message);
+  }
+};
+
+export const RolService = {
+  obtenerRoles,
+  crearRol,
+};

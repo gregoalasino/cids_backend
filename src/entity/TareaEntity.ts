@@ -24,7 +24,7 @@ export class TareaEntity implements Tarea {
   @JoinColumn({ name: "id_proyecto" })
   proyecto: ProyectoEntity;
 
-  @ManyToOne(() => DesarrolladorEntity, (desarrollador) => desarrollador.tareas)
+  @ManyToOne(() => DesarrolladorEntity, (desarrollador) => desarrollador.tareas, { onDelete: 'CASCADE' })
   @JoinColumn({ name: "id_asignado" })
   asignado: DesarrolladorEntity;
 

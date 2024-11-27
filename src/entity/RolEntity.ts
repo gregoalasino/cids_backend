@@ -14,3 +14,5 @@ export class RolEntity implements Rol {
   @OneToMany(() => DesarrolladorEntity, (desarrollador) => desarrollador.rol)
   desarrollador: DesarrolladorEntity[];
 }
+
+export { Rol };
